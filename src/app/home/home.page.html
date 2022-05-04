@@ -1,0 +1,74 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-item lines="none">
+        
+      <ion-label style="font-weight: 800; font-size: 3em;">
+        Hoy
+        <p style="font-weight: 200 ;">
+
+        {{today| date:'fullDate' }}  <!--Muestra la fecha del ordenador del dia actual -->
+        </p>
+        
+        </ion-label>
+        
+        <ion-title text-center slot="start" >  <!-- titulo de aplicacion -->
+                  TAREAS
+       </ion-title>
+ 
+    
+    </ion-item>
+     <ion-searchbar placeholder="buscar tarea" animated (ionChange) ="buscar ($event)"> <!-- Buscar por nombre de tarea-->
+     </ion-searchbar>
+     <ion-list>
+     <ion-item *ngFor="let item of buscado| filtro:textoBuscar"> {{item.nombreItem}}  <!--indica como se muestra el valor filtrado -->
+      </ion-item> 
+     </ion-list> 
+  </ion-toolbar>
+ 
+</ion-header>
+
+   
+
+<ion-content [fullscreen]="true">
+<ion-card *ngFor="let item of todoList let i  = index" class="ion-margin">   <!-- crea lista de tarea-->
+    <ion-card-header>
+      <ion-card-subtitle [style.color]="item.prioridadItem ==='Alta' ? 'red' : (item.itemPriority ==='Baja' ?' green' : 'orange')">   <!-- Asigna tipo de prioridad-->
+         {{item.itemCategory}}
+        
+      </ion-card-subtitle>     <!-- Coloca boton de color deacuardo a la prioridad asignada-->
+      <ion-item>
+        <ion-icon *ngIf="item.prioridadItem ==='Alta'" color="danger" size ="small" name="ellipse"></ion-icon>
+        <ion-icon *ngIf="item.prioridadItem ==='Intermedia'" color="orange" size ="small" name="ellipse"></ion-icon>
+        <ion-icon *ngIf="item.prioridadItem ==='Baja'" color="success" size ="small" name="ellipse"></ion-icon>
+        <ion-label>{{item.nombreItem}}</ion-label>
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label>   
+        día:  {{item.fechaItem | date:'fullDate'}} </ion-label> <!-- asigna fecha seleccionada -->
+    </ion-card-content>
+   <ion-row>
+    <div text-center>    <!-- boton de tarea completada -->
+    <ion-button (click)="completado()">
+      <ion-icon name ="checkmark-outLine" *ngIf="!completo"></ion-icon> <!--inicializa con boton a completar -->
+      <p *ngIf="!completo"> Completar Tarea</p>
+      <ion-icon name ="checkmark-done" *ngIf="completo"></ion-icon> <!--indica si se selecciona el boton como tarea completada --> 
+      <p *ngIf="completo">Tarea Completada </p>
+    </ion-button >
+    </div>
+    <div text-center>
+   <ion-button (click)="delete(i)">   <!-- indica si se elimina la tarea -->
+    <ion-icon name ="trash-outLine"></ion-icon>
+    <p>Borrar</p>
+   </ion-button > 
+  </div>
+  </ion-row>
+  
+  </ion-card>
+ <ion-fab vertical="bottom" horizontal="end" slot="fixed">  <!--indica el boton de crear una nueva tarea  -->
+   <ion-fab-button (click)="AddTask()">    <!-- indica llamado a la funicon de agregar nueva tarea -->
+     <ion-icon name="add"></ion-icon>
+   </ion-fab-button>
+ </ion-fab>
+  
+</ion-content>
