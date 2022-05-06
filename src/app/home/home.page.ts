@@ -15,7 +15,9 @@ export class HomePage {
     textoBuscar='';
    today: number = Date.now();
 
-  constructor(public modalCtrl: ModalController) {}
+  constructor(public modalCtrl: ModalController) {
+    
+  }
   async AddTask(){                                 
      const modal=await this.modalCtrl.create({    
        component: AddNewTaskPage              //llama al componente de la nueva tarea para cearla
@@ -51,8 +53,10 @@ export class HomePage {
     {
       this.buscado= this.todoList.filter((item) =>{
         console.log(item);
-      return (item.nombreItem.toLowerCase().indexOf(val.toLowerCase()) >-1 );
+        return (item.nombreItem.toLowerCase().indexOf(val.toLowerCase()) >-1 );
       });
+    }else{
+      return this.todoList;
     }
     console.log(this.buscado);
   }

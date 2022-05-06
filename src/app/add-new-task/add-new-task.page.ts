@@ -30,6 +30,7 @@ export class AddNewTaskPage implements OnInit {
                       prioridadItem:this.PrioridadTarea, 
                       fechaItem:this.fechaTarea, 
                       categoriaItem:this.CategoriaTarea })
+    
     this.dismis()                  
  }
  

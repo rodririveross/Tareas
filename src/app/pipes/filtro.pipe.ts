@@ -16,4 +16,5 @@ export class FiltroPipe implements PipeTransform {
     return item.nombreItem.toLowerCase().include(texto);
   })
 }
+    
 }
