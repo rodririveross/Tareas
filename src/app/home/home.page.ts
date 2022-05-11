@@ -27,13 +27,14 @@ export class HomePage {
      modal.onDidDismiss().then(newtaskObj=>{
       // console.log(newtaskObj.data); 
       this.todoList.push(newtaskObj.data)
+      this.buscado.push(newtaskObj.data )
      })
 
      return await modal.present()
 
   }
   delete(index){
-    this.todoList.splice(index, 1)
+    this.buscado.splice(index, 1)
     
   }
   completado(){
@@ -51,12 +52,14 @@ export class HomePage {
    const val  =event.target.value;
     if(val && val.trim()!='')
     {
+      console.log(val);
       this.buscado= this.todoList.filter((item) =>{
         console.log(item);
         return (item.nombreItem.toLowerCase().indexOf(val.toLowerCase()) >-1 );
       });
     }else{
-      return this.todoList;
+
+     this.buscado= this.todoList;
     }
     console.log(this.buscado);
   }
